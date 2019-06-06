@@ -1,33 +1,60 @@
 package codereview.products;
 
-import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import java.io.InputStream;
 
-public class Product extends Application{
-    @Override
-    public void start(Stage primaryStage)throws Exception {
-        primaryStage.setTitle("ImageView Experiment");
+public class Product {
 
-        InputStream input = this.getClass().getResourceAsStream("/Resources/coffee-icon.png");
-        Image image = new Image(input);
-        ImageView imageView = new ImageView(image);
+    private String productTitle;
+    private String productQuant;
+    private String productDesc;
+    private Double oldPrice;
+    private Double newPrice;
 
-        HBox hbox = new HBox(imageView);
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(10);
 
-        Scene scene = new Scene(hbox, 300, 300);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public Product(String productTitel, String productQuant, String productDesc, double oldPrice, double newPrice){
+        this.productTitle = productTitel;
+        this.productQuant = productQuant;
+        this.productDesc = productDesc;
+        this.oldPrice = oldPrice;
+        this.newPrice = newPrice;
+
     }
 
-    public static void main(String[] args) {
-        Application.launch(args);
+    @Override
+    public String toString() {
+        return "{" +
+                "'" + productTitle + '\'' +
+                ", old=" + oldPrice +
+                ", new=" + newPrice +
+                '}';
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public String getProductQuant() {
+        return productQuant;
+    }
+
+    public String getProductDesc() {
+        return productDesc;
+    }
+
+    public Double getOldPrice() {
+        return oldPrice;
+    }
+
+    public Double getNewPrice() {
+        return newPrice;
+    }
+
+
+    public void setNewPrice(Double newPrice) {
+        this.newPrice = newPrice;
     }
 }
+
