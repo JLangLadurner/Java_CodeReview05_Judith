@@ -6,17 +6,17 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.List;
 
 //src path : "/Resources/coffee-icon.png"
@@ -53,7 +53,7 @@ public class Main extends Application {
     TextField prodTitleField =  new TextField("");
         prodTitleField.setEditable(false);//renders the field unable to be edited
         prodTitleField.setDisable(false);//will not me grey
-    Label prodTitelLabel = new Label("Product Name");
+    Label prodTitelLabel = new Label("Prod. Name");
     TextField prodQuantField = new TextField("");
         prodQuantField.setEditable(false);
         prodQuantField.setDisable(false);
@@ -66,8 +66,10 @@ public class Main extends Application {
         oldPriceField.setEditable(false);
         oldPriceField.setDisable(false);
     Label oldPriceLabel = new Label("Old Price");
+    Label euroText1 = new Label("€");
     TextField newPriceField = new TextField("");
     Label newPriceLabel = new Label("New Price");
+    Label euroText2 = new Label("€");
     ImageView imageView = new ImageView();
     imageView.setFitHeight(150);
     imageView.setFitWidth(150);
@@ -91,23 +93,24 @@ public class Main extends Application {
 
     //create layout
 
-        HBox prodTitle = new HBox(prodTitleField,prodTitelLabel);
-        prodTitle.setSpacing(20);
-        HBox prodDesc = new HBox(prodDescField,prodDescLabel);
-        prodDesc.setSpacing(20);
-        HBox prodQuant = new HBox(prodQuantField,prodQuantLabel);
-        prodQuant.setSpacing(20);
-        HBox oldPrice = new HBox(oldPriceField, oldPriceLabel);
-        oldPrice.setSpacing(20);
-        HBox newPrice = new HBox(newPriceField, newPriceLabel);
-        newPrice.setSpacing(20);
+        HBox prodTitle = new HBox(prodTitelLabel,prodTitleField);
+        prodTitle.setSpacing(25);
+        prodTitle.setAlignment(Pos.CENTER_LEFT);
+        HBox prodDesc = new HBox(prodDescLabel,prodDescField);
+        prodDesc.setSpacing(25);
+        HBox prodQuant = new HBox(prodQuantLabel,prodQuantField);
+        prodQuant.setSpacing(35);
+        HBox oldPrice = new HBox(oldPriceLabel,oldPriceField, euroText1);
+        oldPrice.setSpacing(30);
+        HBox newPrice = new HBox(newPriceLabel,newPriceField,euroText2 );
+        newPrice.setSpacing(28);
         HBox buttons = new HBox(updateItem,clearFields,printReport);
-        buttons.setAlignment(Pos.CENTER);
+        buttons.setAlignment(Pos.CENTER_RIGHT);
         buttons.setSpacing(10);
 
         VBox mainProdBox = new VBox(prodTitle, prodDesc, prodQuant, oldPrice,newPrice,imageBox,buttons);
         mainProdBox.setSpacing(10);
-        mainProdBox.setPrefWidth(300);
+        mainProdBox.setPrefWidth(400);
 
         VBox listBox = new VBox(list);
         listBox.setPrefWidth(300);
@@ -163,8 +166,48 @@ public class Main extends Application {
 
         });
 
+    printReport.setOnAction(report -> {
+        try {
+            writeReport(items);
+            successReport();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    });
+
+        /*private void updateSuccess(){
+            Alert updateSuccess = new Alert(Alert.AlertType.INFORMATION);
+            updateSuccess.setTitle("Success");
+            updateSuccess.setHeaderText(null);
+            updateSuccess.setContentText("Product successfully updated.");
+            updateSuccess.showAndWait();
+        }*/
+
+
     }
     public static void main(String[] args) {
         Application.launch(args);
+    }
+
+    private void successReport(){
+        Alert successReport = new Alert(Alert.AlertType.INFORMATION);
+        successReport.setTitle("Success");
+        successReport.setHeaderText(null);
+        successReport.setContentText("\"Report\" successfully created.");
+        successReport.showAndWait();
+    }
+
+    private void writeReport(ObservableList <Product> items) throws IOException {
+        FileWriter fileWriter = new FileWriter("./src/report.txt");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        items.forEach(data ->{
+            printWriter.println(data.getProductTitle());
+            printWriter.println(data.getProductQuant());
+            printWriter.println(data.getProductDesc());
+            printWriter.println("Old Price " + data.getOldPrice() + "€");
+            printWriter.println("New Price" + data.getNewPrice() + "€");
+            printWriter.println("");
+        });
+        printWriter.close();
     }
 }
