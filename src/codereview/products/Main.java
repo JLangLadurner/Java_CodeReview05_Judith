@@ -177,9 +177,7 @@ public class Main extends Application {
             });
 
             }
-            public static void main(String[] args) {
-                Application.launch(args);
-            }
+
 
 
             //print report in new file - see source folder
@@ -222,5 +220,9 @@ public class Main extends Application {
                     updateComplete.setContentText("Update completed.");
                     updateComplete.showAndWait();
             }
-}
+
+            public static void main(String[] args) {
+                Application.launch(args);
+            }
+    }//ends class main
 
