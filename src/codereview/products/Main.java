@@ -51,12 +51,20 @@ public class Main extends Application {
     //Create Text Fields with Labels:
 
     TextField prodTitleField =  new TextField("");
+        prodTitleField.setEditable(false);//renders the field unable to be edited
+        prodTitleField.setDisable(false);//will not me grey
     Label prodTitelLabel = new Label("Product Name");
     TextField prodQuantField = new TextField("");
+        prodQuantField.setEditable(false);
+        prodQuantField.setDisable(false);
     Label prodQuantLabel = new Label("Quantity");
     TextField prodDescField = new TextField("");
+        prodDescField.setEditable(false);
+        prodDescField.setDisable(false);
     Label prodDescLabel = new Label ("Description");
     TextField oldPriceField = new TextField("");
+        oldPriceField.setEditable(false);
+        oldPriceField.setDisable(false);
     Label oldPriceLabel = new Label("Old Price");
     TextField newPriceField = new TextField("");
     Label newPriceLabel = new Label("New Price");
@@ -66,13 +74,16 @@ public class Main extends Application {
     HBox imageBox = new HBox(imageView);
     imageBox.setPadding(new Insets(0,0,0,5));
 
-    //create Buttons
-    Button addNewItem = new Button ("ADD");
-    addNewItem.setStyle("-fx-background-color:palegreen");
-    Button clearFields = new Button("Clear");
-    clearFields.setStyle("-fx-background-color:powderblue");
-    Button deleteSelected = new Button("Delete");
-    deleteSelected.setStyle("-fx-background-color: tomato");
+    //create Buttons - add and delete buttons are not in use in this example
+    //Button addNewItem = new Button ("ADD");
+    //addNewItem.setStyle("-fx-background-color:palegreen");
+
+        Button clearFields = new Button("Clear");
+        clearFields.setStyle("-fx-background-color:powderblue");
+
+    //Button deleteSelected = new Button("Delete");
+    //deleteSelected.setStyle("-fx-background-color: tomato");
+
     Button updateItem = new Button("Update");
     updateItem.setStyle("-fx-background-color:Peachpuff");
     Button printReport = new Button("Report");
@@ -90,12 +101,13 @@ public class Main extends Application {
         oldPrice.setSpacing(20);
         HBox newPrice = new HBox(newPriceField, newPriceLabel);
         newPrice.setSpacing(20);
-        HBox buttons = new HBox(addNewItem,deleteSelected,updateItem,clearFields,printReport);
+        HBox buttons = new HBox(updateItem,clearFields,printReport);
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(10);
 
         VBox mainProdBox = new VBox(prodTitle, prodDesc, prodQuant, oldPrice,newPrice,imageBox,buttons);
         mainProdBox.setSpacing(10);
+        mainProdBox.setPrefWidth(300);
 
         VBox listBox = new VBox(list);
         listBox.setPrefWidth(300);
@@ -109,7 +121,7 @@ public class Main extends Application {
         primaryStage.show();
 
         //Controll
-
+        //1. prints item in Fields and shows picture when item is selected on the left hand side:
         list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String  oldP = Double.toString(newValue.getOldPrice());
             String newP = Double.toString(newValue.getNewPrice());
@@ -121,6 +133,36 @@ public class Main extends Application {
             newPriceField.setText(newP);
             imageView.setImage(new Image(this.getClass().getResourceAsStream(newValue.getImagePath())));
         });
+        //clears Fields when clear button is pressed
+        clearFields.setOnAction(actionEvent ->  {
+            System.out.println("clear clicked");
+            prodTitleField.setText("");
+            prodQuantField.setText("");
+            prodDescField.setText("");
+            oldPriceField.setText("");
+            newPriceField.setText("");
+            imageView.setImage(new Image(this.getClass().getResourceAsStream("")));
+
+        });
+
+        updateItem.setOnAction(actionEvent ->  {
+            System.out.println("update clicked");
+            int selIdx = list.getSelectionModel().getSelectedIndex();
+            Double newP = Double.valueOf(newPriceField.getText());
+            if (selIdx != -1) {
+                String prodTitleFieldText = prodTitleField.getText();
+                String prodQuantFieldText = prodQuantField.getText();
+                String prodDescFieldText = prodQuantField.getText();
+                String oldPriceText = oldPriceField.getText();
+                String newPriceText = newPriceField.getText();
+
+
+                list.getItems().get(selIdx).setNewPrice(newP);
+                list.refresh();
+            }
+
+        });
+
     }
     public static void main(String[] args) {
         Application.launch(args);
