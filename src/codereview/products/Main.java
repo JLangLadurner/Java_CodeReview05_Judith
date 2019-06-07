@@ -53,7 +53,7 @@ public class Main extends Application {
     TextField prodTitleField =  new TextField("");
     Label prodTitelLabel = new Label("Product Name");
     TextField prodQuantField = new TextField("");
-    Label prodQuantLabel = new Label("Quanity");
+    Label prodQuantLabel = new Label("Quantity");
     TextField prodDescField = new TextField("");
     Label prodDescLabel = new Label ("Description");
     TextField oldPriceField = new TextField("");
@@ -80,7 +80,7 @@ public class Main extends Application {
 
     //create layout
 
-        HBox prodTitle = new HBox(prodDescField,prodTitelLabel);
+        HBox prodTitle = new HBox(prodTitleField,prodTitelLabel);
         prodTitle.setSpacing(20);
         HBox prodDesc = new HBox(prodDescField,prodDescLabel);
         prodDesc.setSpacing(20);
@@ -109,6 +109,18 @@ public class Main extends Application {
         primaryStage.show();
 
         //Controll
+
+        list.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String  oldP = Double.toString(newValue.getOldPrice());
+            String newP = Double.toString(newValue.getNewPrice());
+
+            prodTitleField.setText(newValue.getProductTitle());
+            prodQuantField.setText(newValue.getProductQuant());
+            prodDescField.setText(newValue.getProductDesc());
+            oldPriceField.setText(oldP);
+            newPriceField.setText(newP);
+            imageView.setImage(new Image(this.getClass().getResourceAsStream(newValue.getImagePath())));
+        });
     }
     public static void main(String[] args) {
         Application.launch(args);
