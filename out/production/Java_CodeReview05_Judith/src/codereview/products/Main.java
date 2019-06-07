@@ -10,10 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
 import java.util.List;
 
 //src path : "/Resources/coffee-icon.png"
@@ -24,19 +27,20 @@ public class Main extends Application {
         //setTitel
         primaryStage.setTitle("Product Price Update");
 
+
         ObservableList<Product> items = FXCollections.observableArrayList(
           //create Products
           new Product("Pfeffer", "1 Stück",
                   "Schwarzer Pfeffer verleiht Ihren Speisen eine pikante Schärfe, besonders wenn er länger mitgekocht wird. ",
-                  3.49,2.79),
+                  3.49,2.79, "/Resources/pfeffer__600x600.jpg"),
           new Product("Schafmilchkäse", "200 Gramm Packung",
                   "Hier gibt es keine Beschreibung, weil unsere Handelskette kennst sich nur bedingt damit aus, wie man eine Werbebeschreibung schreibt.",
-                  3.59,1.99),
+                  3.59,1.99, "/Resources/cheese_salakis__600x600.jpg"),
           new Product("Vöslauer", "1.5 Spritziges Vöslauer Mineralwasser", "Spritziges Vöslauer Mineralwasser.",
-                  0.75,0.49),
+                  0.75,0.49, "/Resources/voslauer__600x600.jpg"),
           new Product("Zucker", "500 Gramm Paket",
                   "Natürliches Gelieren wird durch Apfelpektin unterstützt, welches im richtigen Verhältnis mit Zitronensäure und Kristallzucker abgemischt wurde.",
-                  1.39,0.89)
+                  1.39,0.89,"/Resources/zucker__600x600.jpg")
         );
 
 
@@ -56,6 +60,11 @@ public class Main extends Application {
     Label oldPriceLabel = new Label("Old Price");
     TextField newPriceField = new TextField("");
     Label newPriceLabel = new Label("New Price");
+    ImageView imageView = new ImageView();
+    imageView.setFitHeight(150);
+    imageView.setFitWidth(150);
+    HBox imageBox = new HBox(imageView);
+    imageBox.setPadding(new Insets(0,0,0,5));
 
     //create Buttons
     Button addNewItem = new Button ("ADD");
@@ -85,7 +94,7 @@ public class Main extends Application {
         buttons.setAlignment(Pos.CENTER);
         buttons.setSpacing(10);
 
-        VBox mainProdBox = new VBox(prodTitle, prodDesc, prodQuant, oldPrice,newPrice,buttons);
+        VBox mainProdBox = new VBox(prodTitle, prodDesc, prodQuant, oldPrice,newPrice,imageBox,buttons);
         mainProdBox.setSpacing(10);
 
         VBox listBox = new VBox(list);

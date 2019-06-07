@@ -12,14 +12,20 @@ public class Product {
     private String productDesc;
     private Double oldPrice;
     private Double newPrice;
+    private String imagePath;
 
 
-    public Product(String productTitel, String productQuant, String productDesc, double oldPrice, double newPrice){
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public Product(String productTitel, String productQuant, String productDesc, double oldPrice, double newPrice, String imagePath){
         this.productTitle = productTitel;
         this.productQuant = productQuant;
         this.productDesc = productDesc;
         this.oldPrice = oldPrice;
         this.newPrice = newPrice;
+        this.imagePath = imagePath;
 
     }
 
