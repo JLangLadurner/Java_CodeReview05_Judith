@@ -44,37 +44,37 @@ public class Main extends Application {
         );
 
 
-    //create ListView with Products in it
-    ListView<Product> list = new ListView<>();
-    list.setItems(items);
+        //create ListView with Products in it
+        ListView<Product> list = new ListView<>();
+        list.setItems(items);
 
-    //Create Text Fields with Labels:
+        //Create Text Fields with Labels:
 
-    TextField prodTitleField =  new TextField("");
-        prodTitleField.setEditable(false);//renders the field unable to be edited
-        prodTitleField.setDisable(false);//will not me grey
-    Label prodTitelLabel = new Label("Prod. Name");
-    TextField prodQuantField = new TextField("");
-        prodQuantField.setEditable(false);
-        prodQuantField.setDisable(false);
-    Label prodQuantLabel = new Label("Quantity");
-    TextField prodDescField = new TextField("");
-        prodDescField.setEditable(false);
-        prodDescField.setDisable(false);
-    Label prodDescLabel = new Label ("Description");
-    TextField oldPriceField = new TextField("");
-        oldPriceField.setEditable(false);
-        oldPriceField.setDisable(false);
-    Label oldPriceLabel = new Label("Old Price");
-    Label euroText1 = new Label("€");
-    TextField newPriceField = new TextField("");
-    Label newPriceLabel = new Label("New Price");
-    Label euroText2 = new Label("€");
-    ImageView imageView = new ImageView();
-    imageView.setFitHeight(150);
-    imageView.setFitWidth(150);
-    HBox imageBox = new HBox(imageView);
-    imageBox.setPadding(new Insets(0,0,0,5));
+        TextField prodTitleField =  new TextField("");
+            prodTitleField.setEditable(false);//renders the field unable to be edited
+            prodTitleField.setDisable(false);//will not me grey
+        Label prodTitelLabel = new Label("Prod. Name");
+        TextField prodQuantField = new TextField("");
+            prodQuantField.setEditable(false);
+            prodQuantField.setDisable(false);
+        Label prodQuantLabel = new Label("Quantity");
+        TextField prodDescField = new TextField("");
+            prodDescField.setEditable(false);
+            prodDescField.setDisable(false);
+        Label prodDescLabel = new Label ("Description");
+        TextField oldPriceField = new TextField("");
+            oldPriceField.setEditable(false);
+            oldPriceField.setDisable(false);
+        Label oldPriceLabel = new Label("Old Price");
+        Label euroText1 = new Label("€");
+        TextField newPriceField = new TextField("");
+        Label newPriceLabel = new Label("New Price");
+        Label euroText2 = new Label("€");
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(150);
+        imageView.setFitWidth(150);
+        HBox imageBox = new HBox(imageView);
+        imageBox.setPadding(new Insets(0,0,0,5));
 
     //create Buttons - add and delete buttons are not in use in this example
     //Button addNewItem = new Button ("ADD");
@@ -86,12 +86,12 @@ public class Main extends Application {
     //Button deleteSelected = new Button("Delete");
     //deleteSelected.setStyle("-fx-background-color: tomato");
 
-    Button updateItem = new Button("Update");
-    updateItem.setStyle("-fx-background-color:Peachpuff");
-    Button printReport = new Button("Report");
-    printReport.setStyle("-fx-background-color:silver");
+        Button updateItem = new Button("Update");
+        updateItem.setStyle("-fx-background-color:Peachpuff");
+        Button printReport = new Button("Report");
+        printReport.setStyle("-fx-background-color:silver");
 
-    //create layout
+        //create layout
 
         HBox prodTitle = new HBox(prodTitelLabel,prodTitleField);
         prodTitle.setSpacing(25);
